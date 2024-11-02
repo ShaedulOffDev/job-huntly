@@ -1,9 +1,10 @@
+"use client";
 import { companies, featuredJobs } from "@/mock-data";
-import { faArrowRightLong, faShareAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRightLong, faFile, faShareAlt, faTimes } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
 import Perks from "@/components/perks";
 import { CompanyImage1, CompanyImage2, CompanyImage3 } from "@/assets";
@@ -17,7 +18,18 @@ interface Props {
 }
 const JobDetailsPage = ({ params: { id } }: Props) => {
   const job = featuredJobs.find((c) => c.id == +id);
+  const [submitModal, setSubmitModal] = useState<boolean>(false);
   const company = companies.find((c) => c.id == job?.company_id);
+  useEffect(() => {
+    if (submitModal) {
+      document.body.classList.add("overflow-hidden");
+    } else {
+      document.body.classList.remove("overflow-hidden");
+    }
+    return () => {
+      document.body.classList.remove("overflow-hidden");
+    };
+  }, [submitModal]);
   if (!job) {
     return "Not Found";
   }
@@ -51,7 +63,7 @@ const JobDetailsPage = ({ params: { id } }: Props) => {
                 <FontAwesomeIcon className="text-gray-500 text-2xl" icon={faShareAlt} />
               </Link>
               <div className="sm:border-s sm:ps-6">
-                <button className="px-10 py-3 bg-primary text-white font-[500]">Apply</button>
+                <button className="px-10 py-3 bg-primary text-white font-[500]" onClick={() => setSubmitModal(true)}>Apply</button>
               </div>
             </div>
           </div>
@@ -219,10 +231,10 @@ const JobDetailsPage = ({ params: { id } }: Props) => {
         <h2 className="lg:text-3xl text-3xl md:text-4xl text-text font-[600]">Similiar Jobs</h2>
       </Jobs>
 
-      <div className="fixed top-0 overflow-auto start-0 w-full h-full z-50 bg-black bg-opacity-40 flex justify-center py-20">
-        <form className="w-[550px] px-6 py-10 h-min bg-white relative">
-          <button className="absolute top-3 end-5 text-xl" type="button">
-            <FontAwesomeIcon icon={faTimes}/>
+      <div className={`fixed overflow-x-hidden top-0 overflow-auto start-0 w-full h-full z-50 bg-black bg-opacity-40 justify-center sm:py-20 hidden ${submitModal && 'show-flex'}`}>
+        <form className="sm:w-[550px] w-full px-3 sm:px-6 py-10 h-min bg-white relative">
+          <button className="absolute top-3 end-5 text-xl" type="button" onClick={() => setSubmitModal(false)}>
+            <FontAwesomeIcon icon={faTimes} />
           </button>
           <div className="flex gap-5 mb-7 border-b pb-7">
             <div className="flex-shrink-0">
@@ -275,6 +287,43 @@ const JobDetailsPage = ({ params: { id } }: Props) => {
               <input className="px-4 py-3 border outline-none w-full mt-2" type="text" name="portfolio" placeholder="Link to your portfolio URL" />
             </label>
           </div>
+          <label className="mt-7 block">
+            <p className="font-[600] text-gray-600">Additional information</p>
+            <textarea
+              className="px-4 py-3 border outline-none w-full mt-2 resize-none"
+              rows={4}
+              name="description"
+              placeholder="Add a cover letter or anything else you want to share"
+            />
+            <div className="flex justify-between items-center text-sm text-gray-500 leading-3">
+              <span>Maximum 500 characters</span>
+              <span>0 / 500</span>
+            </div>
+          </label>
+          <label className="mt-7 flex justify-between max-sm:flex-col gap-2 sm:items-center border-b pb-8">
+            <p className="font-[600] text-gray-600">Attach your resume</p>
+            <div className="flex justify-center cursor-pointer gap-3 border border-primary rounded relative items-center px-4 py-2.5 border-dashed text-primary">
+              <FontAwesomeIcon icon={faFile} />
+              <span>Attach Resume/CV</span>
+              <input
+                type="file"
+                name="cv"
+                accept=".doc,.docx,application/msword,.pdf"
+                className="w-ful cursor-pointer h-full absolute top-0 start-0 opacity-0"
+              />
+            </div>
+          </label>
+          <button className="mt-7 bg-primary text-white font-semibold text-center w-full p-3">Submit Application</button>
+          <p className="mt-7 text-sm">
+            By sending the request you can confirm that you accept our{" "}
+            <a className="text-primary" href="#">
+              Terms of Service
+            </a>{" "}
+            and{" "}
+            <a className="text-primary" href="#">
+              Privacy Policy
+            </a>
+          </p>
         </form>
       </div>
     </div>

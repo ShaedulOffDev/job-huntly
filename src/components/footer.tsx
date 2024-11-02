@@ -80,7 +80,7 @@ const Footer = () => {
           </li>
         </ul>
         <div className="py-10 max-sm:gap-y-5 max-sm:flex-col-reverse border-t flex justify-center max-sm:items-center sm:justify-between border-gray-500 text-gray-300 mt-10">
-          <p>2021 @ JobHuntly. All rights reserved.</p>
+          <p>2024 @ JobHuntly. All rights reserved.</p>
           <ul className="flex gap-5">
             <li>
               <Link

@@ -67,6 +67,9 @@
   .posting::after {
     transform: rotateZ(-30deg) translateY(-90%);
   }
+  *::-webkit-scrollbar{
+    width: 3px;
+  }
 }
 .tag:first-child {
   background: #4640de30;
@@ -83,4 +86,16 @@
 .category-item:hover .tag:first-child {
   background: #ffffff30;
   color: #fff;
+}
+.show-flex{
+  display: flex !important;
+  animation: show ease-out .3s
+}
+@keyframes show {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "vitest"
   },
   "dependencies": {
     "@fancyapps/ui": "^5.0.36",
@@ -15,12 +16,15 @@
     "@fortawesome/free-regular-svg-icons": "^6.6.0",
     "@fortawesome/free-solid-svg-icons": "^6.6.0",
     "@fortawesome/react-fontawesome": "^0.2.2",
+    "draft-js": "^0.11.7",
     "next": "14.2.14",
     "react": "^18",
     "react-dom": "^18",
-    "swiper": "^11.1.14"
+    "swiper": "^11.1.14",
+    "vitest": "^2.1.4"
   },
   "devDependencies": {
+    "@types/draft-js": "^0.11.18",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

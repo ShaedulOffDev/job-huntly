@@ -1,6 +1,7 @@
 "use client"
 import { useRef, useEffect, PropsWithChildren } from 'react';
-import { Fancybox as NativeFancybox } from '@fancyapps/ui';
+import Fancybox from "@fancyapps/ui"
+import NativeFancyBox from '@fancyapps/ui'
 import '@fancyapps/ui/dist/fancybox/fancybox.css';
 
 import { OptionsType } from '@fancyapps/ui/types/Fancybox/options';
@@ -19,11 +20,11 @@ function FancyboxWrapper(props: PropsWithChildren<Props>) {
     const delegate = props.delegate || '[data-fancybox]';
     const options = props.options || {};
 
-    NativeFancybox.bind(container, delegate, options);
+    // NativeFancyBox.bind(container, delegate, options);
 
     return () => {
-      NativeFancybox.unbind(container);
-      NativeFancybox.close();
+      Fancybox.unbind(container);
+      Fancybox.close();
     };
   });
 
